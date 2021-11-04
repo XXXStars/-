@@ -1,10 +1,11 @@
 package com.atguigu.yygh.hosp.controller;
 
+import com.atguigu.yygh.common.exception.YyghException;
 import com.atguigu.yygh.common.utils.MD5;
 import com.atguigu.yygh.hosp.service.HospitalSetService;
 import com.atguigu.yygh.model.hosp.HospitalSet;
 import com.atguigu.yygh.vo.hosp.HospitalSetQueryVo;
-import com.atuguigu.yygh.common.result.Result;
+import com.atguigu.yygh.common.result.Result;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -21,6 +21,7 @@ import java.util.Random;
 @Api(tags = "医院设置管理")   // 提示
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class HospitalSetController {
     @Autowired
     private HospitalSetService hospitalSetService;
@@ -101,7 +102,11 @@ public class HospitalSetController {
     @ApiOperation(value = "根据id获取医院信息")
     @GetMapping("/getHospSet/{id}")
     public Result getHospSet(@PathVariable("id") Long id){
-        /*int a = 1 / 0;*/
+        /*try {
+            int a = 1 / 0;
+        }catch (Exception e){
+            throw new YyghException("失败",201);
+        }*/
         HospitalSet byId = hospitalSetService.getById(id);
         return Result.ok(byId);
     }
